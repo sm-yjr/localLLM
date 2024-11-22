@@ -163,3 +163,5 @@ cython_debug/
 
 # Config files
 config.json
+# 忽略 .gradio 文件或文件夹
+.gradio
