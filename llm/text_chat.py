@@ -1,4 +1,4 @@
-from .utils import create_chat_client
+from .utils import create_chat_client, get_model_config
 
 def text_chat(message, history):
     """
@@ -12,17 +12,18 @@ def text_chat(message, history):
         str: The AI's response to the user's message.
     """
     client = create_chat_client()
+    model_config = get_model_config("text")
 
     # Append the user's message to the history
     history.append({"role": "user", "content": message})
 
     # Get AI response
     response = client.chat.completions.create(
-        model="qwen-plus",
+        model=model_config["name"],
         messages=history,
         stream=True,
-        extra_body={"enable_search": True},
-        temperature=0.8
+        extra_body=model_config["extra_body"],
+        temperature=model_config["temperature"]
     )
 
     # Collect the AI's response

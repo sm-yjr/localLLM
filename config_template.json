@@ -1,4 +1,20 @@
 {
-    "OPENAI_API_KEY": "sk-xxxxxxxxxxxxxxxx",
-    "OPENAI_BASE_URL": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    "OPENAI_API_KEY": "${OPENAI_API_KEY}",
+    "OPENAI_BASE_URL": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+    "models": {
+        "text": {
+            "name": "qwen-plus",
+            "temperature": 0.8,
+            "extra_body": {
+                "enable_search": true
+            }
+        },
+        "visual": {
+            "name": "qwen-vl-max-latest",
+            "temperature": 0.8,
+            "extra_body": {
+                "enable_search": true
+            }
+        }
+    }
 }

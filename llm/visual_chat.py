@@ -1,4 +1,4 @@
-from .utils import create_chat_client
+from .utils import create_chat_client, get_model_config
 from .file_utils import process_uploaded_files
 
 def visual_chat(inputs, history):
@@ -37,17 +37,18 @@ def visual_chat(inputs, history):
     })
 
     client = create_chat_client()
+    model_config = get_model_config("visual")
 
     # Append the user's message to the history
     history.append({"role": "user", "content": content})
     
     # Get AI response
     response = client.chat.completions.create(
-        model="qwen-vl-max-latest",
+        model=model_config["name"],
         messages=history,
         stream=True,
-        extra_body={"enable_search": True},
-        temperature=0.8
+        extra_body=model_config["extra_body"],
+        temperature=model_config["temperature"]
     )
 
     # Collect the AI's response
