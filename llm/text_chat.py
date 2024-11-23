@@ -1,18 +1,6 @@
-import json
-from openai import OpenAI
+from .utils import create_chat_client
 
-def load_config():
-    with open("config.json", "r") as config_file:
-        return json.load(config_file)
-
-def create_chat_client():
-    config = load_config()
-    return OpenAI(
-        api_key=config["OPENAI_API_KEY"],
-        base_url=config["OPENAI_BASE_URL"]
-    )
-
-def chat(message, history):
+def text_chat(message, history):
     """
     Process a single chat message and return the AI's response.
 
@@ -68,8 +56,8 @@ if __name__ == "__main__":
         # Get AI response as a stream
         print("\nAI助手: ", end="", flush=True)
         ai_response = ""
-        for chunk in chat(user_input, messages):
-            print(chunk[len(ai_response):], end="", flush=True)  # Print only the new part of the response
-            ai_response = chunk  # Update the full response as it grows
+        for chunk in text_chat(user_input, messages):
+            print(chunk[len(ai_response):], end="", flush=True)
+            ai_response = chunk
         
-        print()  # Add a newline after the response
+        print() 
